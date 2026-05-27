@@ -2,6 +2,7 @@
 import { shortcuts } from "../data.ts";
 const platforms = Object.keys(shortcuts);
 const platform = platforms[0];
+const shortcutsList = shortcuts[platform];
 ---
 
 <div id="container">
@@ -26,15 +27,15 @@ const platform = platforms[0];
 
       <section id="shortcuts">
         {
-          Object.entries(shortcuts[platform]).map(([name, shortcut], index) => (
-            <div class="shortcut" data-platform={platform}>
+          shortcutsList.map((shortcut) => (
+            <div class="shortcut">
               <div class="chord-group">
                 <div class="chord">
-                  {Object.entries(shortcut.keys).map(([index, key]) => (
+                  {shortcut.labels.map((key) => (
                     <div class="keycap">{key}</div>
                   ))}
                 </div>
-                <div class="chord-description">{name}</div>
+                <div class="chord-description">{shortcut.action}</div>
               </div>
             </div>
           ))
@@ -164,10 +165,6 @@ const platform = platforms[0];
       gap: 6px;
     }
 
-    .keycap + .keycap::before {
-      margin: 0 6px;
-    }
-
     .pills {
       min-height: 48px;
     }
@@ -254,10 +251,10 @@ const platform = platforms[0];
   			<div class="shortcut">
               <div class="chord-group">
                 <div class="chord">
-                  ${Object.entries(shortcut.keys)
+                  ${Object.entries(shortcut.labels)
                     .map(
-                      ([index, key]) => `
-                    <div class="keycap">${key}</div>
+                      ([index, label]) => `
+                    <div class="keycap">${label}</div>
                   `,
                     )
                     .join("")}

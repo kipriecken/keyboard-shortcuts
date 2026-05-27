@@ -186,8 +186,8 @@ const shortcutsList = shortcuts[platform];
 <script>
   import { shortcuts } from "../data";
 
-  let currentPlatform = `{platform}`;
   const platforms = Object.keys(shortcuts);
+  let currentPlatform = platforms[0];
   const filterKeys: string[] = [];
 
   const pills = document.querySelectorAll<HTMLElement>(".pill");
